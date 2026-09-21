@@ -17,7 +17,7 @@ git pull origin main
 For a first checkout, clone the repository and then enter its directory:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/yaju1995/HacktheClimate.git
 cd HacktheClimate
 git pull origin main
 ```
