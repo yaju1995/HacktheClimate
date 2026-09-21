@@ -1,0 +1,14 @@
+# Python cache
+__pycache__/
+**/__pycache__/
+
+# Virtual environment
+.venv/
+venv/
+
+# Model files (anywhere)
+trained_models/
+**/trained_models/
+
+analysis/
+**/analysis/
