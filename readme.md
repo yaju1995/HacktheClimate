@@ -194,7 +194,57 @@ If the loader reports missing columns, invalid timestamps, non-numeric values,
 missing values, duplicate timestamps, or time gaps, fix the CSV or update the
 loader configuration before training.
 
-## 7. Model output
+## 7. Available models
+
+### LSTM
+
+[`src/models/lstm.py`](./src/models/lstm.py) provides `LSTMForecast` for
+sequence-based forecasting. It accepts inputs shaped
+`[batch, lookback, features]` and predicts a configurable forecast horizon.
+`LSTMDataset` creates the lookback and horizon windows used by the LSTM
+workflow.
+
+### Feed-forward model
+
+[`src/models/feedforward.py`](./src/models/feedforward.py) provides
+`FeedForwardForecast` for instant-to-instant prediction. It accepts one row of
+features at a time, shaped `[batch, input_size]`, and returns
+`[batch, horizon, 1]`. For the wind-generation example, the model uses the
+nine configured instant features and `horizon=1` to predict the generation at
+the same timestamp. It does not create or consume an LSTM lookback window.
+
+### Transformer
+
+[`src/models/transformer.py`](./src/models/transformer.py) provides
+`TransformerForecast` using a Transformer encoder. It projects input features
+into the Transformer dimension, processes the sequence, uses the final
+timestep representation, and maps it to the forecast horizon. Its expected
+input is a sequence shaped `[batch, sequence_length, features]`, and its
+output is `[batch, horizon, 1]`.
+
+## 8. Feed-forward training notebook
+
+[`train_feedforward.ipynb`](./train_feedforward.ipynb) trains and tests the
+feed-forward model with the synthetic Ireland hourly dataset. The notebook:
+
+1. loads and validates data through `LoadForecastDataLoader`;
+2. keeps data from 2022 through 2024;
+3. separates the data chronologically into 70% train, 15% validation, and 15%
+   test sets;
+4. fits feature and target scalers on the training set only;
+5. trains `FeedForwardForecast` using instant features to predict instant
+   `wind_generation_mw`;
+6. saves the best checkpoint to
+   `models/generation_feedforward/best_feedforward.pt`;
+7. evaluates the test set with MAE and RMSE; and
+8. visualizes the final 24 hours of the test set with actual and predicted
+   generation values.
+
+Open the notebook from the repository root, select the `.venv` Python kernel,
+and run the cells from top to bottom. Update the CSV path in the loader cell
+when using a different compatible dataset.
+
+## 9. Model output
 
 The notebook creates this directory automatically:
 
