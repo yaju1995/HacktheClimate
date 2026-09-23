@@ -1,0 +1,105 @@
+DATASET COLUMN DEFINITIONS
+==========================
+
+This dataset merges three independent data sources:
+
+1. ENTSO‑E (European Network of Transmission System Operators for Electricity)
+2. EirGrid Smart Grid Dashboard (Ireland wind generation)
+3. Met Éireann (Irish national meteorological service)
+
+Each column below is annotated with its origin.
+
+------------------------------------------------------------
+ENTSO‑E DATA COLUMNS  (electricity generation + load)
+------------------------------------------------------------
+
+Forecasted Load [forecast-entsoe]
+    - ENTSO‑E day‑ahead load forecast for Ireland.
+
+Actual Load [actual-entsoe]
+    - ENTSO‑E actual measured system load.
+
+Wind Onshore [forecast-entsoe]
+    - ENTSO‑E day‑ahead wind onshore forecast.
+
+Fossil Gas [Actual Aggregated] [actual-entsoe]
+Fossil Hard coal [Actual Aggregated] [actual-entsoe]
+Fossil Oil [Actual Aggregated] [actual-entsoe]
+Fossil Peat [Actual Aggregated] [actual-entsoe]
+Hydro Pumped Storage [Actual Aggregated] [actual-entsoe]
+Hydro Run-of-river and pondage [Actual Aggregated] [actual-entsoe]
+Solar [Actual Aggregated] [actual-entsoe]
+Wind Onshore [Actual Aggregated] [actual-entsoe]
+Other [Actual Aggregated] [actual-entsoe]
+    - ENTSO‑E actual aggregated generation by fuel type.
+
+Fossil Gas [Actual Consumption] [actual-entsoe]
+Fossil Hard coal [Actual Consumption] [actual-entsoe]
+Fossil Oil [Actual Consumption] [actual-entsoe]
+Fossil Peat [Actual Consumption] [actual-entsoe]
+Hydro Pumped Storage [Actual Consumption] [actual-entsoe]
+Hydro Run-of-river and pondage [Actual Consumption] [actual-entsoe]
+Solar [Actual Consumption] [actual-entsoe]
+Other [Actual Consumption] [actual-entsoe]
+    - ENTSO‑E actual consumption by fuel type (where available).
+
+------------------------------------------------------------
+EIRGRID SMART GRID DASHBOARD DATA  (wind generation)
+------------------------------------------------------------
+
+ACTUAL WIND (MW)
+    - Actual measured wind generation in MW.
+    - Source: https://www.smartgriddashboard.com/roi/wind/
+
+FORECAST WIND (MW)
+    - Forecasted wind generation in MW.
+    - Source: https://www.smartgriddashboard.com/roi/wind/
+
+------------------------------------------------------------
+MET ÉIREANN WEATHER DATA  (meteorological observations)
+------------------------------------------------------------
+
+irainfall   Rainfall indicator
+Precipitation Amount (mm)
+    - Rainfall measurements from Met Éireann.
+
+ittt Dry bulb indicator
+Air Temperature (C)
+    - Dry bulb air temperature.
+
+iwb Wet bulb indicator
+Wet Bulb Temperature (C)
+    - Wet bulb temperature.
+
+Dew Point Temperature (C)
+    - Dew point temperature.
+
+Vapour Pressure (hPa)
+    - Atmospheric vapour pressure.
+
+Relative Humidity (%)
+    - Humidity percentage.
+
+Mean Sea Level Pressure (hPa)
+    - Atmospheric pressure at sea level.
+
+itabspeed wind Speed indicator
+Mean Wind Speed (kt)
+Mean Wind Speed (km/h)
+    - Wind speed in knots and km/h.
+
+itabdir wind dir indicator
+Predominant Wind Direction (deg)
+    - Wind direction in degrees.
+
+Weekday
+    - Day of week (0–6 or name depending on preprocessing).
+
+------------------------------------------------------------
+TIMESTAMP COLUMN
+------------------------------------------------------------
+
+DateTime
+    - Unified timestamp in UTC.
+    - All sources aligned to a common timezone.
+    - Resampled to hourly resolution.
